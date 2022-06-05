@@ -2,8 +2,24 @@ import { useContext } from 'react'
 import ShoppingCartContext from '../context/ShoppingCartContext'
 import Item from '../components/Item'
 import { toast } from 'react-toastify'
+import { motion } from 'framer-motion'
 
 function Explore() {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  }
+
+  const theItem = {
+    hidden: { opacity: 0, scale: 0 },
+    show: { opacity: 1, scale: 1 }
+  }
+
   const { products, addToCart, searchProducts } =
     useContext(ShoppingCartContext)
   const addCart = (item) => {
@@ -14,7 +30,12 @@ function Explore() {
     toast.success(`${item.name} added to your cart`, options)
   }
   const prodList = products.map((item) => (
-    <Item key={item.id} item={item} addCart={addCart} />
+    <motion.div
+      transition={{ type: 'spring' }}
+      variants={theItem}
+      key={item.id}>
+      <Item item={item} addCart={addCart} />
+    </motion.div>
   ))
 
   const handleChange = (e) => {
@@ -22,7 +43,11 @@ function Explore() {
   }
   return (
     <div className='screen'>
-      <div className='searchbar-container animate-slider'>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2 }}
+        className='searchbar-container'>
         <div className='mb-2 mx-auto'>
           <p className='search-label'>Search</p>
           <input
@@ -33,8 +58,14 @@ function Explore() {
             id='search'
           />
         </div>
-      </div>
-      <div className='product-list-container'>{prodList}</div>
+      </motion.div>
+      <motion.div
+        variants={container}
+        initial='hidden'
+        animate='show'
+        className='product-list-container'>
+        {prodList}
+      </motion.div>
     </div>
   )
 }

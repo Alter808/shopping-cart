@@ -1,6 +1,6 @@
 function Item({ item, addCart }) {
   return (
-    <div className='product-card animate-fadein'>
+    <div className='product-card'>
       <div className='product-card-img-container'>
         <div className='product-card-img-sub-cont'>
           <img

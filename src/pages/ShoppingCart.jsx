@@ -4,11 +4,16 @@ import ShoppingCartContext from '../context/ShoppingCartContext'
 import CartItem from '../components/CartItem'
 import CartTotals from '../components/CartTotals'
 import { toast } from 'react-toastify'
+import { motion } from 'framer-motion'
 
 function ShoppingCart() {
   window.scrollTo(0, 0)
   const { shoppingCart, placeOrder } = useContext(ShoppingCartContext)
   const navigate = useNavigate()
+  const variants = {
+    visible: { x: 0, transition: { type: 'spring', duration: 1 } },
+    hidden: { x: -1000 }
+  }
   const cart = shoppingCart.map((item) => (
     <CartItem key={item.id} item={item} />
   ))
@@ -35,14 +40,18 @@ function ShoppingCart() {
   )
   return (
     <div className='screen'>
-      <div className='bg-white px-4 py-2 rounded-md shadow-xl max-w-lg md:max-w-2xl mx-auto mb-24 animate-slider'>
+      <motion.div
+        initial='hidden'
+        animate='visible'
+        variants={variants}
+        className='bg-white px-4 py-2 rounded-md shadow-xl max-w-lg md:max-w-2xl mx-auto mb-24'>
         <p className='mb-4 text-lg font-semibold text-gray-600'>
           Shopping Cart
         </p>
         <div>{shoppingCart.length > 0 ? cart : emptyCart}</div>
         <div>{shoppingCart.length > 0 && carTotalsTemplate}</div>
         {shoppingCart.length > 0 && placeOrderButton}
-      </div>
+      </motion.div>
     </div>
   )
 }
