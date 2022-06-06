@@ -14,7 +14,14 @@ function ShoppingCart() {
     visible: {
       opacity: 1,
       x: 0,
-      transition: { type: 'spring', stiffness: 700 }
+      transition: {
+        type: 'spring',
+        stiffness: 700,
+        velocity: 2,
+        restSpeed: 0.5,
+        mass: 0.5,
+        bounce: 0.25
+      }
     },
     hidden: { opacity: 1, x: -50 }
   }
