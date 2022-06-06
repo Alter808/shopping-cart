@@ -16,8 +16,8 @@ function Explore() {
   }
 
   const theItem = {
-    hidden: { opacity: 0, scale: 0 },
-    show: { opacity: 1, scale: 1 }
+    hidden: { opacity: 0 },
+    show: { opacity: 1 }
   }
 
   const { products, addToCart, searchProducts } =
@@ -30,10 +30,7 @@ function Explore() {
     toast.success(`${item.name} added to your cart`, options)
   }
   const prodList = products.map((item) => (
-    <motion.div
-      transition={{ type: 'spring' }}
-      variants={theItem}
-      key={item.id}>
+    <motion.div variants={theItem} key={item.id}>
       <Item item={item} addCart={addCart} />
     </motion.div>
   ))
@@ -46,7 +43,7 @@ function Explore() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 2 }}
+        transition={{ duration: 1 }}
         className='searchbar-container'>
         <div className='mb-2 mx-auto'>
           <p className='search-label'>Search</p>
