@@ -11,8 +11,12 @@ function ShoppingCart() {
   const { shoppingCart, placeOrder } = useContext(ShoppingCartContext)
   const navigate = useNavigate()
   const variants = {
-    visible: { x: 0, transition: { type: 'spring' } },
-    hidden: { x: -1000 }
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { type: 'spring', stiffness: 700 }
+    },
+    hidden: { opacity: 1, x: -50 }
   }
   const cart = shoppingCart.map((item) => (
     <CartItem key={item.id} item={item} />
